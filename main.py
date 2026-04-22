@@ -19,16 +19,8 @@ app.add_middleware(
 def index():
     return {"message": "Hello World"}
 
-#auth
-#read users
-@app.get("/users")
-async def  get_users():
-    finder = users.find({}).to_list(100)
 
-    return [
-        {**user, "_id": str(user["_id"])}
-        for user in finder
-    ]
+
 #auth
 app.include_router(auth.router)
 

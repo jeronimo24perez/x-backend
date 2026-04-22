@@ -29,25 +29,25 @@ def register(user: User):
         })
         return {"message": "Registered", "user":user}
     else:
-        raise HTTPException(status_code=401, detail="Ya existe alguien con ese email o ese nombre de usuario")
+        raise HTTPException(status_code=400, detail="Ya existe alguien con ese email o ese nombre de usuario")
 
 @router.post('/auth/login')
 def login(data: Login):
     user = users.find_one({"email": data.email})
     if not user:
-       raise HTTPException(status_code=404, detail="usuario no encontrado")
+       raise HTTPException(status_code=400, detail="usuario no encontrado")
     if(user['password'] == data.password):
-        return {"token": generate_token(), "auth": "true"}
+        return {"token": generate_token(), "auth": "true", "email": data.email }
     else:
-        raise HTTPException(status_code=404, detail="contraseña fallida")
+        raise HTTPException(status_code=400, detail="contraseña fallida")
 
 @router.get('/auth/me/{id}')
 def auth(id: str):
     if not ObjectId.is_valid(id):
-        raise HTTPException(status_code=404, detail="id invalido")
+        raise HTTPException(status_code=400, detail="id invalido")
 
     user = users.find_one({"_id":  ObjectId( id )})
     if not user:
-        raise HTTPException(status_code=404, detail="Usuario no encontrado")
+        raise HTTPException(status_code=400, detail="Usuario no encontrado")
     user["_id"] = str(user["_id"])
     return {"user": user}
