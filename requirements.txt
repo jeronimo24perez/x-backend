@@ -2,3 +2,6 @@ fastapi
 uvicorn
 pymongo
 google-auth
+requests
+motor
+python-dotenv
