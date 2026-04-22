@@ -1,7 +1,8 @@
 
 from fastapi import FastAPI
 from mongo.mongo import users
-from sections import auth, posts, users, follows, likes, comments
+from sections import auth, posts, users, follows, likes, comments, google
+
 from  fastapi.middleware.cors import CORSMiddleware
 app = FastAPI()
 
@@ -19,8 +20,8 @@ app.add_middleware(
 def index():
     return {"message": "Hello World"}
 
-
-
+#google
+app.include_router(google.router)
 #auth
 app.include_router(auth.router)
 
