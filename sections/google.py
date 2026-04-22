@@ -43,5 +43,4 @@ def google_auth(auth_data: Auth_request):
         return {"msg": message, "id": str(userMaker.inserted_id) }
     else:
         user =  users.find_one({"email": email})
-        user['_id'] = str( user["_id"])
-        return user
+        return {"id": str( user["_id"])}

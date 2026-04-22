@@ -7,7 +7,8 @@ from  fastapi.middleware.cors import CORSMiddleware
 app = FastAPI()
 
 origins = [
-    "http://localhost:5173",  # tu frontend
+    "http://localhost:5173",
+    "https://x-app-olive.vercel.app/"  # tu frontend
 ]
 app.add_middleware(
     CORSMiddleware,
