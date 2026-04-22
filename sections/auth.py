@@ -16,7 +16,7 @@ def register(user: User):
     username = users.find_one({"username": user.username})
 
     if(not email and not username):
-        users.insert_one({
+        userRegisted = users.insert_one({
             "username": user.username,
             "email": user.email,
             "password": user.password,
@@ -27,7 +27,7 @@ def register(user: User):
             "website": "",
             "location": "",
         })
-        return {"message": "Registered", "user":user}
+        return {"message": "Registered", "id": str( userRegisted.inserted_id)}
     else:
         raise HTTPException(status_code=400, detail="Ya existe alguien con ese email o ese nombre de usuario")
 
