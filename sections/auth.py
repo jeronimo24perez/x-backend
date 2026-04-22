@@ -37,7 +37,7 @@ def login(data: Login):
     if not user:
        raise HTTPException(status_code=400, detail="usuario no encontrado")
     if(user['password'] == data.password):
-        return {"token": generate_token(), "auth": "true", "email": data.email }
+        return {"token": generate_token(), "auth": "true", "email": str(user["_id"]) }
     else:
         raise HTTPException(status_code=400, detail="contraseña fallida")
 
