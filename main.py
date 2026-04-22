@@ -8,7 +8,8 @@ app = FastAPI()
 
 origins = [
     "http://localhost:5173",
-    "https://x-app-olive.vercel.app/"  # tu frontend
+    "https://x-app-olive.vercel.app",
+    "https://x-app-olive.vercel.app."  # tu frontend
 ]
 app.add_middleware(
     CORSMiddleware,
