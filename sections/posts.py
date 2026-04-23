@@ -70,13 +70,13 @@ def get_feed(id: str):
         }).to_list()
 
         if not following:
-            raise HTTPException(status_code="401", detail="no sigues a nadie")
+            raise HTTPException(status_code=400, detail="no sigues a nadie")
         post_array = []
         for i in following:
             post = posts.find({"userId": ObjectId(i["followedId"])}).to_list()
             post_array.append(post)
         if not post:
-            raise HTTPException(status_code=401, detail="sin posts")
+            raise HTTPException(status_code=400, detail="sin posts")
 
         final_array = []
         for i in post_array:
@@ -87,4 +87,3 @@ def get_feed(id: str):
             #i["_id"] = str(i["_id"])
             #i["userId"] = str(i["userId"])
         return final_array
-    
