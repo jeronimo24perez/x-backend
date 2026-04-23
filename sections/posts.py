@@ -59,7 +59,7 @@ def get_posts(skip:int = 0):
 
 @router.get('/feed/{id}')
 def get_feed(id: str):
-    try:
+
         if not ObjectId.is_valid(id):
             raise HTTPException(status_code=401, detail="Id invalido")
         user = users.find_one({"_id": ObjectId(id)})
@@ -87,5 +87,4 @@ def get_feed(id: str):
             #i["_id"] = str(i["_id"])
             #i["userId"] = str(i["userId"])
         return final_array
-    except:
-        raise HTTPException(status_code=401, detail="algo falla")
+    
