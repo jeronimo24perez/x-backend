@@ -16,9 +16,10 @@ def create_post(post: Post):
         raise HTTPException(status_code=404, detail="El usuario no existe")
     posts.insert_one({
         "userId": ObjectId(post.userId) ,
+        "email": user["email"],
         "autor": user["username"],
         "likes": 0,
-        "text": post.text,
+        "text": post.text,  
         "img": post.img,
         "date": post.date
     })
@@ -46,7 +47,7 @@ def delete_post(id: str):
 @router.get('/posts')
 def get_posts(skip:int = 0):
     try:
-        printer = posts.find({}).sort("date", -1).skip(int(skip)).limit(2)
+        printer = posts.find({}).sort("date", -1).skip(int(skip)).limit(10)
         post_array = printer.to_list()
         array = []
         for i in post_array:
