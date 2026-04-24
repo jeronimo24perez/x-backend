@@ -34,7 +34,7 @@ def like_maker(like: Likes):
         }}
     )
 
-    return "like realizado"
+    return str(like.postId)
 
 @router.delete('/like')
 def delete_like(like: Likes):
@@ -66,7 +66,7 @@ def delete_like(like: Likes):
         }}
     )
 
-    return "like eliminado"
+    return str(like.postId)
 
 @router.get('/posts/likes/{id}')
 def get_likes(id: str):
