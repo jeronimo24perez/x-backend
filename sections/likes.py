@@ -88,4 +88,15 @@ def get_likes(id: str):
         i["userId"] = str(i["userId"])
         i["postId"] = str(i["postId"])
     return like
-        
+@router.get('/user/likes/{id}')
+def get_user_likes(id):
+    if not ObjectId.is_valid(id):
+     raise HTTPException(status_code=400, detail="id invalido")
+    like = likes.find({"userId": ObjectId(id)}).to_list()
+    if not like:
+     raise HTTPException(status_code=400, detail="no has hecho likes")
+    for i in like:
+        i["_id"] = str(i["_id"])
+        i["userId"] = str(i["userId"])
+        i["postId"] = str(i["postId"])
+    return like
