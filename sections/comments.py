@@ -14,16 +14,18 @@ def comment(post_id: str, comment: Comment):
         if not post:
             raise HTTPException(status_code=400, detail="Post inexistente")
         print(comment)
-        comments.insert_one({
-            "userId": comment.userId,
-            "postId": post_id,
-            "text": comment.text,
-            "date": comment.date,
-            "postId": comment.postId,
-            "img": comment.img
+        commentPost = comments.insert_one({
+                "userId": comment.userId,
+                "postId": post_id,
+                "text": comment.text,
+                "date": comment.date,
+                "img": comment.img
         })
+        commentPost["_id"] = str(commentPost["_id"])
+        commentPost["postId"] = str(commentPost["postId"])
+        commentPost["userId"] = str(commentPost["userId"])
 
-        return {"message": "peticion realizada"}
+        return commentPost
     except:
         raise HTTPException(status_code=400, detail="fallo en el sistema")
 @router.delete('/comment/{id}')
