@@ -7,27 +7,27 @@ router = APIRouter()
 
 @router.post('/comment/{post_id}')
 def comment(post_id: str, comment: Comment):
-    try:
         if not ObjectId.is_valid(post_id):
             raise HTTPException(status_code=400, detail="id invalido")
         post = posts.find_one({"_id": ObjectId(post_id)})
         if not post:
             raise HTTPException(status_code=400, detail="Post inexistente")
         print(comment)
-        commentPost = comments.insert_one({
+        commentCreate= comments.insert_one({
                 "userId": comment.userId,
                 "postId": post_id,
                 "text": comment.text,
                 "date": comment.date,
                 "img": comment.img
         })
-        commentPost["_id"] = str(commentPost["_id"])
-        commentPost["postId"] = str(commentPost["postId"])
-        commentPost["userId"] = str(commentPost["userId"])
+        commentPosted = {
+            "_id": str(commentCreate.inserted_id),
+            "comment": comment
+        }
 
-        return commentPost
-    except:
-        raise HTTPException(status_code=400, detail="fallo en el sistema")
+
+        return commentPosted
+  
 @router.delete('/comment/{id}')
 def delete_comment(id: str):
     if not ObjectId.is_valid(id):
