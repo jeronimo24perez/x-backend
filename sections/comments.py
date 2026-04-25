@@ -15,6 +15,8 @@ def comment(post_id: str, comment: Comment):
         print(comment)
         commentCreate= comments.insert_one({
                 "userId": comment.userId,
+                "autor": comment.autor,
+                "email": comment.email,
                 "postId": post_id,
                 "text": comment.text,
                 "date": comment.date,
