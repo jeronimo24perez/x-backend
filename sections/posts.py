@@ -19,7 +19,7 @@ def create_post(post: Post):
         "email": user["email"],
         "autor": user["username"],
         "likes": 0,
-        "text": post.text,  
+        "text": post.text,
         "img": post.img,
         "date": post.date
     })

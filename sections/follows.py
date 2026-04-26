@@ -80,7 +80,7 @@ def delete_follow(follow: Follow):
     )
     return {"peticion": "realizada"}
 
-@router.get('/followers/{id}')
+@router.get('/following/{id}')
 def get_followers(id: str):
     if (not ObjectId.is_valid( id) ):
         raise HTTPException(status_code=401, detail=" Id incorrecto")
@@ -101,7 +101,7 @@ def get_followers(id: str):
     return {"find": finder}
 
 
-@router.get('/following/{id}')
+@router.get('/followers/{id}')
 def get_followed(id: str):
     if (not ObjectId.is_valid( id) ):
         raise HTTPException(status_code=401, detail=" Id incorrecto")
