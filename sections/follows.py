@@ -59,7 +59,7 @@ def delete_follow(follow: Follow):
     })
     if not finder:
         raise HTTPException(status_code=401, detail="No existe este follow")
-    follows.delete_one({
+    follow_deleted = follows.find_one_and_delete({
         "followerId": ObjectId(follow.followerId) ,
         "followedId": ObjectId(follow.followedId)
     })
@@ -78,7 +78,11 @@ def delete_follow(follow: Follow):
             "follows": updater_two["follows"] - 1
         }}
     )
-    return {"peticion": "realizada"}
+    follow_deleted["_id"] = str(follow_deleted["_id"])
+    follow_deleted["followerId"] = str(follow_deleted["followerId"])
+    follow_deleted["followedId"] = str(follow_deleted["followedId"])
+    
+    return follow_deleted
 
 @router.get('/following/{id}')
 def get_followers(id: str):
