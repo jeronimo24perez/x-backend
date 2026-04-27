@@ -24,7 +24,7 @@ def create_follow(follow: Follow):
 
     if finder:
         raise HTTPException(status_code=401, detail="Ya sigues esta persona")
-    follows.insert_one({
+    followInsert = follows.insert_one({
         "followerId": ObjectId(follow.followerId) ,
         "followedId": ObjectId(follow.followedId)
     })
@@ -43,7 +43,12 @@ def create_follow(follow: Follow):
             "follows": updater_two["follows"] + 1
         }}
     )
-    return {"peticion": "realizada"}
+
+    return {
+    "_id": str(followInsert.inserted_id),
+    "followerId": str(follow.followerId),
+    "followedId": str(follow.followedId)
+}
 
 @router.delete('/follow')
 def delete_follow(follow: Follow):
