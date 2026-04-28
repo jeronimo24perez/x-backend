@@ -1,3 +1,4 @@
+from fastapi import FastAPI
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
 uri = "mongodb+srv://jeronimo24perez:demar@back.dgejetl.mongodb.net/?appName=back"

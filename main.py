@@ -1,7 +1,7 @@
 
 from fastapi import FastAPI
 from mongo.mongo import users
-from sections import auth, posts, users, follows, likes, comments, google
+from sections import auth, posts, users, follows, likes, comments, google, search
 
 from  fastapi.middleware.cors import CORSMiddleware
 app = FastAPI()
@@ -43,3 +43,5 @@ app.include_router(posts.router)
 app.include_router(likes.router)
 #comments
 app.include_router(comments.router)
+#search
+app.include_router(search.router)
