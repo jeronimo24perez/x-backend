@@ -62,3 +62,15 @@ def update_user(id: str, userObj: User):
     )
     updater["_id"] = str(updater["_id"])
     return {"user": updater}
+@router.get('/users')
+def get_all_users(skip:int = 0):
+    try:
+        printer = users.find({}).sort("date", -1).skip(int(skip)).limit(10)
+        user_array = printer.to_list()
+        array = []
+        for i in user_array:
+            i["_id"] = str(i["_id"])
+            array.append(i)
+        return array
+    except:
+        raise HTTPException(status_code=401, detail="algo fallo")
