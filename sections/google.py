@@ -21,9 +21,10 @@ def google_auth(auth_data: Auth_request):
     google_id = user_info['sub']
     email = user_info['email']
     name = user_info['name']
-    user =  users.find_one({"google_id": google_id})
+    user = users.find_one({"email": email})
+    
     if not user:
-        # Si el usuario no existe, lo registramos
+        # Si el usuario no existe por email, lo registramos
         time = datetime.now()
         formated = time.strftime("%d-%m-%Y")
         new_user = {
@@ -42,5 +43,8 @@ def google_auth(auth_data: Auth_request):
         message = "Usuario registrado con éxito"
         return {"msg": message, "id": str(userMaker.inserted_id) }
     else:
-        user =  users.find_one({"email": email})
-        return {"id": str( user["_id"])}
+        # Si el usuario existe por email, verificamos si ya tiene el google_id
+        if "google_id" not in user or not user["google_id"]:
+            users.update_one({"_id": user["_id"]}, {"$set": {"google_id": google_id}})
+        
+        return {"id": str(user["_id"])}

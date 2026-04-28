@@ -26,6 +26,7 @@ def register(user: User):
             "followers": 0,
             "website": "",
             "location": "",
+            "google_id": ""
         })
         return {"message": "Registered", "id": str( userRegisted.inserted_id)}
     else:
