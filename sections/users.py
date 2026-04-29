@@ -1,5 +1,6 @@
 from fastapi import HTTPException, APIRouter
 from models.user import User
+from models.user_editable import User_editable
 from mongo.mongo import posts, users
 from bson import ObjectId
 from pymongo import ReturnDocument
@@ -35,7 +36,7 @@ def get_user_posts(id: str):
     return post_saver
 
 @router.put('/user/{id}')
-def update_user(id: str, userObj: User):
+def update_user(id: str, userObj: User_editable):
     if not ObjectId.is_valid(id):
        raise HTTPException(status_code=404, detail="id invalido")
     user = users.find_one({"_id":  ObjectId( id )})
