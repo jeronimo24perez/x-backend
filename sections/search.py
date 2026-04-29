@@ -13,16 +13,10 @@ def search(q: str):
         {"username": 1, "bio": 1, "followers": 1, "email": 1}
     ).limit(5))
 
-    found_posts = list(posts.find(
-        {"text": {"$regex": pattern}},
-        {"userId": 1, "text": 1, "date": 1, "likes": 1}
-    ).limit(10))
 
     for user in found_users:
         user["_id"] = str(user["_id"])
 
-    for post in found_posts:
-        post["_id"] = str(post["_id"])
-        post["userId"] = str(post["userId"])
 
-    return {"users": found_users, "posts": found_posts}
+
+    return {"users": found_users}
