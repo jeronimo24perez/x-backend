@@ -47,12 +47,7 @@ def update_user(id: str, userObj: User):
             {
                 "$set":{
                     "username": userObj.username,
-                    "email": userObj.email,
-                    "password": userObj.password,
-                    "date": userObj.date,
                     "bio": userObj.bio,
-                    "follows": userObj.follows,
-                    "followers": userObj.followers,
                     "website": userObj.website,
                     "location": userObj.location
             }
